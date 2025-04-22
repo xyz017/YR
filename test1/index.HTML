@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YR Happy Graduation Day</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+      );
+      background-color: white;
+      animation: twinkle 2s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 0.9; }
+    }
+
+    .carousel-container {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      height: 100vh;
+      align-items: center;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: center;
+      width: 100%;
+    }
+
+    .envelope {
+      width: 260px;
+      height: 160px;
+      background-color: #d94f4f;
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.3s;
+      perspective: 1000px;
+      z-index: 1;
+    }
+
+    .flap {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-bottom: 80px solid #f08080;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 2;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(-120deg);
+    }
+
+    .message {
+      display: none;
+      position: absolute;
+      top: 190px;
+      width: 340px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    .message img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- 動態產生五角星背景 -->
+  <script>
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.transform = `scale(${0.9 + Math.random() * 0.3})`;
+      document.body.appendChild(star);
+    }
+  </script>
+
+  <div class="carousel-container">
+    <div class="carousel-slide">
+      <div class="envelope" id="envelope" onclick="toggleMessage()">
+        <div class="flap"></div>
+      </div>
+      <div id="message" class="message">
+        <h3>TO 曾彥睿：</h3>
+        <p>再過幾天你就要邁入下個階段，提早祝你畢業快樂啦，也祝你上到你心中想的那所大學。上大學也不要忘記苗栗還有一個我，請記得想我。最後祝你心想事成，遇到困難，不要灰心逃避，贏難而上，總會有出入的，上帝為你關上門一定會開另一扇窗的。制服記得留一個位子給我💗</p>
+        <img src="https://pbs.twimg.com/media/GARM8ujawAAKxY4.jpg" alt="圖片1">
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMessage() {
+      const message = document.getElementById('message');
+      const envelope = document.getElementById('envelope');
+      message.classList.toggle('show');
+      envelope.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
